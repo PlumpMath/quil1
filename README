@@ -1,13 +1,8 @@
-# quil1
+quil1
+Learning clojure through processing.org with quil.
 
-FIXME: write description
 
-## Usage
 
-FIXME: write
-
-## License
-
-Copyright (C) 2012 FIXME
+Copyright (C) 2012 juanantonioruz gmail
 
 Distributed under the Eclipse Public License, the same as Clojure.
