@@ -1,19 +1,75 @@
 (ns quil1.ejemplo
-  (:use quil.core))
+  (:use [quil.core]
+        [quil1.util]
+        [clj-time.local :only (local-now)])
+(:import java.awt.event.KeyEvent)
+)
+(def ancho 100)
 
+
+(def color-text (atom 0))
 (defn setup []
-  (smooth)                          ;;Turn on anti-aliasing
-  (frame-rate 1)                    ;;Set framerate to 1 FPS
-  (background 200))                 ;;Set the background colour to
-                                    ;;  a nice shade of grey.
-(defn draw []
-(frame-rate 1)
- (stroke (random 255))
-  (stroke-weight 40)       ;;Set the stroke thickness randomly
-  (fill (random 10))               ;;Set the fill colour to a random grey
+  (smooth)
+  (background 100)
 
-  (let [diam 200           ;;Set the diameter to a value between 0 and 100
-        x    (random (width))       ;;Set the x coord randomly within the sketch
-        y    (random (height))]     ;;Set the y coord randomly within the sketch
-    (ellipse x y diam diam)))       ;;Draw a circle at x y with the correct diameter
+  (set-state! :fuente (create-font "Zapfino" 12))
+ 
+  (text-font (state :fuente) 12)
+  
+  )
+
+(def iniciado (atom false))
+(defn draw []
+
+
+  (fill 150)
+;;  (rect ancho ancho 300 300)
+  (stroke 255)
+  (line 0 140 100 100)
+  (when-not @iniciado
+    (do
+      (println "no iniciado")
+ (println (class @color-text))
+      (swap! iniciado complement)
+      ))
+  (fill @color-text)
+   (text "eyyy" 30 40)
+  )
+
+(defn mouse-clicked[]
+  (do
+    (print "click! ")
+  ;;  (println (str "la clae. " (class (apply color (color-rgb-random)))))
+
+    (swap! iniciado complement)
+    
+    (swap! color-text  color-rgb-random)
+    
+    (let [colorito (color 100)]
+
+
+;;        (println colorito)
+
+      ))
+      )
+
+
+(defn key-pressed []
+  (text-font (state :fuente) (random 50 200))
+  ;;(println (str "eeeeeeeeeeeeee " (raw-key)))
+  (println (key-as-keyword))
+;;  (try (print  (key-as-keyword) " key: ")
+  ;;     (catch Exception e (println (.getMessage e)))
+ ;;      )
+                       
+
+  )
+
+
+
+
+
+
+
+
 
