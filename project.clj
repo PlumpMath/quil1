@@ -8,7 +8,10 @@
                  [com.cemerick/url "0.0.7"]
                  [lein-swank "1.4.4"]
                  [clj-http "0.5.5"]
-                 [cheshire "4.0.3"]]
+                 [cheshire "4.0.3"]
+                 [midje "1.4.0"]]
+  :dev-dependencies [[midje "1.4.0"]]
+    :profiles {:dev {:plugins [[lein-midje "2.0.0-SNAPSHOT"]]}} ;; Leiningen 2
   )
 
 

@@ -1,5 +1,5 @@
 (ns mijson
-  (:use [clojure.java.io])
+  (:use [clojure.java.io] [midje.sweet])
   (:require [clj-http.client :as client] [cheshire.core :as json])
   )
 
@@ -12,3 +12,6 @@
   "probar con 'method'"
   [clave]
   ((first (parsea-ejemplo)) clave))
+
+
+(fact (dame-valor-ejemplo "method")=>"apache")
