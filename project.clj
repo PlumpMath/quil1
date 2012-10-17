@@ -12,6 +12,7 @@
                  [midje "1.4.0"]]
   :dev-dependencies [[midje "1.4.0"]]
     :profiles {:dev {:plugins [[lein-midje "2.0.0-SNAPSHOT"]]}} ;; Leiningen 2
-  )
+    :jvm-opts ["-Xmx768M"]
+    )
 
 

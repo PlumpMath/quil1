@@ -8,10 +8,28 @@
 (defn parsea-ejemplo []
   (json/parse-string (:body (client/get miurl))))
 
+(defn first-keys []
+  (keys  (first (parsea-ejemplo))))
+
+(defn first-json []
+  (first (parsea-ejemplo)))
+
 (defn dame-valor-ejemplo
   "probar con 'method'"
   [clave]
   ((first (parsea-ejemplo)) clave))
 
+(defn obten-valor [x]
+        (x "method"))
+
+
+(defn genera-obten-valor [clave]
+  (fn [x] (x clave)))
+
+(def metodolea (genera-obten-valor "method"))
+
+(defn pinta-ejemplo []
+  (map (genera-obten-valor "sponsors") (parsea-ejemplo))
+  )
 
 (fact (dame-valor-ejemplo "method")=>"apache")
