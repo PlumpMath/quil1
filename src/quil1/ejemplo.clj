@@ -1,6 +1,7 @@
 (ns quil1.ejemplo
   (:use [quil.core]
         [quil1.util]
+        [mijson]
         [clj-time.local :only (local-now)])
 (:import java.awt.event.KeyEvent)
 )
@@ -12,16 +13,23 @@
   (smooth)
   (background 100)
 
-  (set-state! :fuente (create-font "Zapfino" 12))
+  (set-state!
+   :fuente (create-font "Zapfino" 12)
+   :cubes (count (parsea-ejemplo)))
  
   (text-font (state :fuente) 12)
   
   )
 
 (def iniciado (atom false))
+(defn paint-random-circle []
+  (println "paint-random-circle!!")
+  (fill (random 255))
+  (ellipse (num (random 0 500)) (num (random 0 500)) 50 50)
+  )
 (defn draw []
 
-
+;(println (state :cubes))
   (fill 150)
 ;;  (rect ancho ancho 300 300)
   (stroke 255)
@@ -38,6 +46,9 @@
 
 (defn mouse-clicked[]
   (do
+    (dotimes   [n (count (parsea-ejemplo))] 
+          (paint-random-circle))
+    ;(paint-random-circle)
     (print "click! ")
   ;;  (println (str "la clae. " (class (apply color (color-rgb-random)))))
 
