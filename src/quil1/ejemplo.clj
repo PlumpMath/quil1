@@ -22,8 +22,8 @@
   )
 
 (def iniciado (atom false))
-(defn paint-random-circle []
-  (println "paint-random-circle!!")
+(defn paint-random-circle [valor]
+  (println (str valor "paint-random-circle!!"))
   (fill (random 255))
   (ellipse (num (random 0 500)) (num (random 0 500)) 50 50)
   )
@@ -46,11 +46,13 @@
 
 (defn mouse-clicked[]
   (do
-    (dotimes   [n (count (parsea-ejemplo))] 
-          (paint-random-circle))
-    ;(paint-random-circle)
+    (dorun (map paint-random-circle (parsea-ejemplo)))
+
+
+  ;;  (dotimes   [n (count (parsea-ejemplo))]  (paint-random-circle n))
+                                        ;(paint-random-circle)
     (print "click! ")
-  ;;  (println (str "la clae. " (class (apply color (color-rgb-random)))))
+    ;;  (println (str "la clae. " (class (apply color (color-rgb-random)))))
 
     (swap! iniciado complement)
     
@@ -59,7 +61,7 @@
     (let [colorito (color 100)]
 
 
-;;        (println colorito)
+      ;;        (println colorito)
 
       ))
       )
