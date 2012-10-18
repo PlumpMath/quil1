@@ -8,7 +8,7 @@
 (def ancho 100)
 
 (defn color-dark []
-(println "voy ")
+
   )
 
 (def color-text (atom 0))
