@@ -4,7 +4,7 @@
   (:require [quil1.ejemplo :as ejemplo]))
 
 (defsketch example                
-  :title "First Dynamic Example with Clojure/Quil=Clojure on top of Processing.org"
+  :title "mi sketch: learning clojure"
   :setup ejemplo/setup           
   :draw ejemplo/draw
   :mouse-clicked ejemplo/mouse-clicked
