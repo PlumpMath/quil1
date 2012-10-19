@@ -11,11 +11,42 @@
 (defn first-keys []
   (keys  (first (parsea-ejemplo))))
 
-(defn walk-map-key-class
-  "" []
-(let [datos (first-json)]
-        (map #(class (datos %) ) (keys datos)))
+(defn class-name-string [clase]
+  (.getName (class clase)))
+
+(defn tipo-valor-seq
+  [clase]
+  (if (= clase (class []))
+    true
+    false))
+
+    
+
+(defn walk-map
+  [dati]
+  (let [datos dati]
+   (let [mapa-clase-valores   (map #(hash-map  :la-clave % :la-clase  (class (datos %)) ) (keys datos))]
+     ;mapa-clase-valores
+    (doseq [x mapa-clase-valores]
+              (let [{clave :la-clave clase :la-clase} x]
+                (if (tipo-valor-seq clase)
+                  (doseq [x (datos clave)]
+                  (walk-map x))
+                  (println (str  clave " > " (datos clave))))
+              
+                ))
+  ;  (doseq [[clave clase] mapa-clase-valores ]
+ 
+     ;  (str clave clase)
+     ;  )
+   )
+   )
   )
+(defn walk-map-key-class
+  []
+ (walk-map (first-json))
+  )
+
 
 (defn first-json []
   (first (parsea-ejemplo)))

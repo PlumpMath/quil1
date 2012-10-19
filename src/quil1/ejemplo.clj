@@ -8,7 +8,11 @@
 (def ancho 100)
 
 (defn color-dark []
-(println "voy ")
+  (let [colorcito (. TColor newRandom)]
+       (println (.toARGB colorcito))
+       colorcito
+       )
+  
   )
 
 (def color-text (atom 0))
@@ -71,8 +75,9 @@
 
 
 (defn key-pressed []
+  (swap! color-text (.toARGB (color-dark)))
   (text-font (state :fuente) (random 50 200))
-  ;;(println (str "eeeeeeeeeeeeee " (raw-key)))
+  ;;(println (str "raw-key" (raw-key)))
   (println (key-as-keyword))
 ;;  (try (print  (key-as-keyword) " key: ")
   ;;     (catch Exception e (println (.getMessage e)))
