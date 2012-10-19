@@ -1,0 +1,613 @@
+; nREPL 0.1.4
+user> (use :reload 'mijson)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: first-json in this context, compiling:(mijson.clj:47) 
+user> (use :reload 'mijson)
+
+[31mFAIL[0m at (mijson.clj:72)
+    Expected: "apache"
+      Actual: "Phone"
+nil
+user> (walk-map-key-class)
+
+
+
+
+
+
+
+
+
+
+
+:end_date > 2012-10-17
+:last_updated > 2012-10-18T18:54:39Z
+:method > Phone
+:pollster > Mellman (D-Berkley)
+:name > The Mellman Group (D)
+:start_date > 2012-10-15
+:name > 2012 Nevada Senate: Heller vs. Berkley
+:chart > 2012-nevada-senate-heller-vs-berkley
+:topic > 2012-senate
+:state > NV
+:name > Likely Voters
+:observations > 600
+:margin_of_error > 4.0
+:choice > Berkley
+:value > 41
+:first_name > Shelley
+:last_name > Berkley
+:party > Dem
+:incumbent > false
+:choice > Heller
+:value > 38
+:first_name > Dean
+:last_name > Heller
+:party > Rep
+:incumbent > true
+:choice > None
+:value > 4
+:first_name > 
+:last_name > 
+:party > 
+:incumbent > 
+:choice > VanderBeek
+:value > 5
+:first_name > David Lory
+:last_name > VanderBeek
+:party > Ind
+:incumbent > false
+:choice > Undecided
+:value > 11
+:first_name > 
+:last_name > 
+:party > 
+:incumbent > 
+:source > http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012
+:id > 15925
+:name > Shelley Berkley (D)
+nil
+user> (def (firs-json))
+CompilerException java.lang.RuntimeException: First argument to def must be a Symbol, compiling:(NO_SOURCE_PATH:1) 
+user> (def (first-json))
+CompilerException java.lang.RuntimeException: First argument to def must be a Symbol, compiling:(NO_SOURCE_PATH:1) 
+user> (def data (first-json))
+#'user/data
+user> data
+{:end_date "2012-10-17", :last_updated "2012-10-18T18:54:39Z", :method "Phone", :pollster "Mellman (D-Berkley)", :survey_houses [{:name "The Mellman Group (D)"}], :start_date "2012-10-15", :questions [{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}], :source "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012", :id 15925, :sponsors [{:name "Shelley Berkley (D)"}]}
+user> (keys data)
+(:end_date :last_updated :method :pollster :survey_houses :start_date :questions :source :id :sponsors)
+user> (vals data)
+("2012-10-17" "2012-10-18T18:54:39Z" "Phone" "Mellman (D-Berkley)" [{:name "The Mellman Group (D)"}] "2012-10-15" [{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}] "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012" 15925 [{:name "Shelley Berkley (D)"}])
+user> (doseq [valor (vals data)] valor)
+nil
+user> (doseq [valor (vals data)] (str valor))
+nil
+user> (doseq [valor (keys data)] (str valor))
+nil
+user> (doseq [valor (range 10)] (str valor))
+nil
+user> (range 10)
+(0 1 2 3 4 5 6 7 8 9)
+user> (doseq [valor (range 10)] (prn valor))
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+nil
+user> (doseq [valor (range 10)] (println valor))
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+nil
+user> (doseq [valor (vals data)] (prn valor))
+"2012-10-17"
+"2012-10-18T18:54:39Z"
+"Phone"
+"Mellman (D-Berkley)"
+[{:name "The Mellman Group (D)"}]
+"2012-10-15"
+[{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}]
+"http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012"
+15925
+[{:name "Shelley Berkley (D)"}]
+nil
+user> (doseq [valor (vals data)] (prn (class valor)))
+java.lang.String
+java.lang.String
+java.lang.String
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+java.lang.Integer
+clojure.lang.PersistentVector
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (prn (class valor))))
+#'user/mif
+user> (mif data)
+java.lang.String
+java.lang.String
+java.lang.String
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+java.lang.Integer
+clojure.lang.PersistentVector
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class []) (prn "vector") (prn "value")))))
+CompilerException java.lang.RuntimeException: Too few arguments to if, compiling:(NO_SOURCE_PATH:1) 
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (prn "vector") (prn "value"))))
+#'user/mif
+user> (mif data)
+"value"
+"value"
+"value"
+"value"
+"vector"
+"value"
+"vector"
+"value"
+"value"
+"vector"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (prn "V") (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"V"
+"S"
+"S"
+"V"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V") ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"V"
+"S"
+"S"
+"V"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  ) (prn "S"))))
+#'user/mif
+user> (def prueba [{1 2} {3 4}])
+#'user/prueba
+user> (class prueba)
+clojure.lang.PersistentVector
+user> (doseq [perico prueba] (prn perico))
+{1 2}
+{3 4}
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif valor)) ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+ClassCastException clojure.lang.PersistentArrayMap cannot be cast to java.util.Map$Entry  clojure.lang.APersistentMap$ValSeq.first (APersistentMap.java:174)
+user> (doseq [perico prueba] (prn (class perico)))
+clojure.lang.PersistentHashMap
+clojure.lang.PersistentHashMap
+nil
+user> (class (first-json))
+
+clojure.lang.PersistentHashMap
+user> 
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (doc repeat)
+-------------------------
+clojure.core/repeat
+([x] [n x])
+  Returns a lazy (infinite!, or length n if supplied) sequence of xs.
+nil
+user> (repeat 3 "x")
+("x" "x" "x")
+user> (defn blanquea [numero]
+        (print (apply str (repeat numero "->"))))
+#'user/blanquea
+user> (blanquea 4)
+->->->->
+nil
+user> (defn mif [data contador] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S"))))
+#'user/mif
+user> (mif data 1)
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "V"
+->->->nil "S"
+->->->nil "S"
+->->->nil "S"
+->->->nil "V"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+nil
+user> prueba
+[{1 2} {3 4}]
+user> (def ey {1 2 3 4})
+#'user/ey
+user> (doseq [k (keys ey) v (vals ey)] (prn k v)
+             )
+1 2
+1 4
+3 2
+3 4
+nil
+user> (doseq [keyval ey] (prn keyval))
+[1 2]
+[3 4]
+nil
+user> (doseq [keyval ey] (prn key keyval))
+#<core$key clojure.core$key@1675e00> [1 2]
+#<core$key clojure.core$key@1675e00> [3 4]
+nil
+user> (doseq [keyval ey] (prn (key keyval)))
+1
+3
+nil
+user> (defn mif [data contador] (doseq [keyval data)] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S")))))
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+RuntimeException Unmatched delimiter: ]  clojure.lang.Util.runtimeException (Util.java:170)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: keyval in this context, compiling:(NO_SOURCE_PATH:1) 
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+user> (defn mif [data contador] (doseq [keyval data] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S")))))
+#'user/mif
+user> (mif data 1)
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "V"
+->->->nil "S"
+->->->nil "S"
+->->->nil "S"
+->->->nil "V"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+nil
+user> (defn mif [data contador] (doseq [keyval data] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V" clave)  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S" valor)))))
+#'user/mif
+user> (mif data 1)
+->nil "S" "2012-10-17"
+->nil "S" "2012-10-18T18:54:39Z"
+->nil "S" "Phone"
+->nil "S" "Mellman (D-Berkley)"
+->nil "V" :survey_houses
+->->nil "S" "The Mellman Group (D)"
+->nil "S" "2012-10-15"
+->nil "V" :questions
+->->nil "S" "2012 Nevada Senate: Heller vs. Berkley"
+->->nil "S" "2012-nevada-senate-heller-vs-berkley"
+->->nil "S" "2012-senate"
+->->nil "S" "NV"
+->->nil "V" :subpopulations
+->->->nil "S" "Likely Voters"
+->->->nil "S" 600
+->->->nil "S" 4.0
+->->->nil "V" :responses
+->->->->nil "S" "Berkley"
+->->->->nil "S" 41
+->->->->nil "S" "Shelley"
+->->->->nil "S" "Berkley"
+->->->->nil "S" "Dem"
+->->->->nil "S" false
+->->->->nil "S" "Heller"
+->->->->nil "S" 38
+->->->->nil "S" "Dean"
+->->->->nil "S" "Heller"
+->->->->nil "S" "Rep"
+->->->->nil "S" true
+->->->->nil "S" "None"
+->->->->nil "S" 4
+->->->->nil "S" nil
+->->->->nil "S" nil
+->->->->nil "S" nil
+->->->->nil "S" nil
+->->->->nil "S" "VanderBeek"
+->->->->nil "S" 5
+->->->->nil "S" "David Lory"
+->->->->nil "S" "VanderBeek"
+->->->->nil "S" "Ind"
+->->->->nil "S" false
+->->->->nil "S" "Undecided"
+->->->->nil "S" 11
+->->->->nil "S" nil
+->->->->nil "S" nil
+->->->->nil "S" nil
+->->->->nil "S" nil
+->nil "S" "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012"
+->nil "S" 15925
+->nil "V" :sponsors
+->->nil "S" "Shelley Berkley (D)"
+nil
+user> (blanquea 5)
+->->->->->
+nil
+user> (defn blanquea [numero]
+        (print (apply str (repeat numero "->"))))
+#'user/blanquea
+user> (blanquea 5)
+->->->->->
+nil
+user> (defn blanquea [numero]
+         (apply str (repeat numero "->")))
+#'user/blanquea
+user> (blanquea 5)
+"->->->->->"
+user> (mif data 1)
+"->" "S" "2012-10-17"
+"->" "S" "2012-10-18T18:54:39Z"
+"->" "S" "Phone"
+"->" "S" "Mellman (D-Berkley)"
+"->" "V" :survey_houses
+"->->" "S" "The Mellman Group (D)"
+"->" "S" "2012-10-15"
+"->" "V" :questions
+"->->" "S" "2012 Nevada Senate: Heller vs. Berkley"
+"->->" "S" "2012-nevada-senate-heller-vs-berkley"
+"->->" "S" "2012-senate"
+"->->" "S" "NV"
+"->->" "V" :subpopulations
+"->->->" "S" "Likely Voters"
+"->->->" "S" 600
+"->->->" "S" 4.0
+"->->->" "V" :responses
+"->->->->" "S" "Berkley"
+"->->->->" "S" 41
+"->->->->" "S" "Shelley"
+"->->->->" "S" "Berkley"
+"->->->->" "S" "Dem"
+"->->->->" "S" false
+"->->->->" "S" "Heller"
+"->->->->" "S" 38
+"->->->->" "S" "Dean"
+"->->->->" "S" "Heller"
+"->->->->" "S" "Rep"
+"->->->->" "S" true
+"->->->->" "S" "None"
+"->->->->" "S" 4
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->->->->" "S" "VanderBeek"
+"->->->->" "S" 5
+"->->->->" "S" "David Lory"
+"->->->->" "S" "VanderBeek"
+"->->->->" "S" "Ind"
+"->->->->" "S" false
+"->->->->" "S" "Undecided"
+"->->->->" "S" 11
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->->->->" "S" nil
+"->" "S" "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012"
+"->" "S" 15925
+"->" "V" :sponsors
+"->->" "S" "Shelley Berkley (D)"
+nil
+user> (defn mif [data contador] (doseq [keyval data] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V" clave)  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S" clave ": " valor)))))
+#'user/mif
+user> (mif data 1)
+"->" "S" :end_date ": " "2012-10-17"
+"->" "S" :last_updated ": " "2012-10-18T18:54:39Z"
+"->" "S" :method ": " "Phone"
+"->" "S" :pollster ": " "Mellman (D-Berkley)"
+"->" "V" :survey_houses
+"->->" "S" :name ": " "The Mellman Group (D)"
+"->" "S" :start_date ": " "2012-10-15"
+"->" "V" :questions
+"->->" "S" :name ": " "2012 Nevada Senate: Heller vs. Berkley"
+"->->" "S" :chart ": " "2012-nevada-senate-heller-vs-berkley"
+"->->" "S" :topic ": " "2012-senate"
+"->->" "S" :state ": " "NV"
+"->->" "V" :subpopulations
+"->->->" "S" :name ": " "Likely Voters"
+"->->->" "S" :observations ": " 600
+"->->->" "S" :margin_of_error ": " 4.0
+"->->->" "V" :responses
+"->->->->" "S" :choice ": " "Berkley"
+"->->->->" "S" :value ": " 41
+"->->->->" "S" :first_name ": " "Shelley"
+"->->->->" "S" :last_name ": " "Berkley"
+"->->->->" "S" :party ": " "Dem"
+"->->->->" "S" :incumbent ": " false
+"->->->->" "S" :choice ": " "Heller"
+"->->->->" "S" :value ": " 38
+"->->->->" "S" :first_name ": " "Dean"
+"->->->->" "S" :last_name ": " "Heller"
+"->->->->" "S" :party ": " "Rep"
+"->->->->" "S" :incumbent ": " true
+"->->->->" "S" :choice ": " "None"
+"->->->->" "S" :value ": " 4
+"->->->->" "S" :first_name ": " nil
+"->->->->" "S" :last_name ": " nil
+"->->->->" "S" :party ": " nil
+"->->->->" "S" :incumbent ": " nil
+"->->->->" "S" :choice ": " "VanderBeek"
+"->->->->" "S" :value ": " 5
+"->->->->" "S" :first_name ": " "David Lory"
+"->->->->" "S" :last_name ": " "VanderBeek"
+"->->->->" "S" :party ": " "Ind"
+"->->->->" "S" :incumbent ": " false
+"->->->->" "S" :choice ": " "Undecided"
+"->->->->" "S" :value ": " 11
+"->->->->" "S" :first_name ": " nil
+"->->->->" "S" :last_name ": " nil
+"->->->->" "S" :party ": " nil
+"->->->->" "S" :incumbent ": " nil
+"->" "S" :source ": " "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012"
+"->" "S" :id ": " 15925
+"->" "V" :sponsors
+"->->" "S" :name ": " "Shelley Berkley (D)"
+nil
+user> 

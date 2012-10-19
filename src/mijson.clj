@@ -20,7 +20,20 @@
     true
     false))
 
-    
+ (defn path-jerarquico [numero]
+   (apply str (repeat numero) "->"))
+
+(defn pinta-json [data contador]
+  (doseq [keyval data]
+    (let [clave (key keyval) valor (val keyval)]
+      (if (= (class valor) (class []))
+        (do (prn (path-jerarquico contador) "V" clave)
+            (doseq [hijo valor]
+              (prn hijo)
+              ;(pinta-json hijo (inc contador))
+              ))
+        (prn (path-jerarquico contador) "S" valor)))))
+
 
 (defn walk-map
   [dati]
@@ -33,7 +46,6 @@
                   (doseq [x (datos clave)]
                   (walk-map x))
                   (println (str  clave " > " (datos clave))))
-              
                 ))
   ;  (doseq [[clave clase] mapa-clase-valores ]
  
@@ -42,14 +54,15 @@
    )
    )
   )
+(defn first-json []
+  (first (parsea-ejemplo)))
+
 (defn walk-map-key-class
   []
  (walk-map (first-json))
   )
 
 
-(defn first-json []
-  (first (parsea-ejemplo)))
 
 (defn dame-valor-ejemplo
   "probar con :method"
@@ -68,5 +81,10 @@
 (defn pinta-ejemplo []
   (map (genera-obten-valor :sponsors) (parsea-ejemplo))
   )
+
+(defn pinta-primer-json []
+  (pinta-json (first-json) 1)
+  )
+
 
 (fact (dame-valor-ejemplo :method)=>"apache")

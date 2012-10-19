@@ -1,0 +1,436 @@
+; nREPL 0.1.4
+user> (use :reload 'mijson)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: first-json in this context, compiling:(mijson.clj:47) 
+user> (use :reload 'mijson)
+
+[31mFAIL[0m at (mijson.clj:72)
+    Expected: "apache"
+      Actual: "Phone"
+nil
+user> (walk-map-key-class)
+
+
+
+
+
+
+
+
+
+
+
+:end_date > 2012-10-17
+:last_updated > 2012-10-18T18:54:39Z
+:method > Phone
+:pollster > Mellman (D-Berkley)
+:name > The Mellman Group (D)
+:start_date > 2012-10-15
+:name > 2012 Nevada Senate: Heller vs. Berkley
+:chart > 2012-nevada-senate-heller-vs-berkley
+:topic > 2012-senate
+:state > NV
+:name > Likely Voters
+:observations > 600
+:margin_of_error > 4.0
+:choice > Berkley
+:value > 41
+:first_name > Shelley
+:last_name > Berkley
+:party > Dem
+:incumbent > false
+:choice > Heller
+:value > 38
+:first_name > Dean
+:last_name > Heller
+:party > Rep
+:incumbent > true
+:choice > None
+:value > 4
+:first_name > 
+:last_name > 
+:party > 
+:incumbent > 
+:choice > VanderBeek
+:value > 5
+:first_name > David Lory
+:last_name > VanderBeek
+:party > Ind
+:incumbent > false
+:choice > Undecided
+:value > 11
+:first_name > 
+:last_name > 
+:party > 
+:incumbent > 
+:source > http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012
+:id > 15925
+:name > Shelley Berkley (D)
+nil
+user> (def (firs-json))
+CompilerException java.lang.RuntimeException: First argument to def must be a Symbol, compiling:(NO_SOURCE_PATH:1) 
+user> (def (first-json))
+CompilerException java.lang.RuntimeException: First argument to def must be a Symbol, compiling:(NO_SOURCE_PATH:1) 
+user> (def data (first-json))
+#'user/data
+user> data
+{:end_date "2012-10-17", :last_updated "2012-10-18T18:54:39Z", :method "Phone", :pollster "Mellman (D-Berkley)", :survey_houses [{:name "The Mellman Group (D)"}], :start_date "2012-10-15", :questions [{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}], :source "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012", :id 15925, :sponsors [{:name "Shelley Berkley (D)"}]}
+user> (keys data)
+(:end_date :last_updated :method :pollster :survey_houses :start_date :questions :source :id :sponsors)
+user> (vals data)
+("2012-10-17" "2012-10-18T18:54:39Z" "Phone" "Mellman (D-Berkley)" [{:name "The Mellman Group (D)"}] "2012-10-15" [{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}] "http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012" 15925 [{:name "Shelley Berkley (D)"}])
+user> (doseq [valor (vals data)] valor)
+nil
+user> (doseq [valor (vals data)] (str valor))
+nil
+user> (doseq [valor (keys data)] (str valor))
+nil
+user> (doseq [valor (range 10)] (str valor))
+nil
+user> (range 10)
+(0 1 2 3 4 5 6 7 8 9)
+user> (doseq [valor (range 10)] (prn valor))
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+nil
+user> (doseq [valor (range 10)] (println valor))
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+nil
+user> (doseq [valor (vals data)] (prn valor))
+"2012-10-17"
+"2012-10-18T18:54:39Z"
+"Phone"
+"Mellman (D-Berkley)"
+[{:name "The Mellman Group (D)"}]
+"2012-10-15"
+[{:name "2012 Nevada Senate: Heller vs. Berkley", :chart "2012-nevada-senate-heller-vs-berkley", :topic "2012-senate", :state "NV", :subpopulations [{:name "Likely Voters", :observations 600, :margin_of_error 4.0, :responses [{:choice "Berkley", :value 41, :first_name "Shelley", :last_name "Berkley", :party "Dem", :incumbent false} {:choice "Heller", :value 38, :first_name "Dean", :last_name "Heller", :party "Rep", :incumbent true} {:choice "None", :value 4, :first_name nil, :last_name nil, :party nil, :incumbent nil} {:choice "VanderBeek", :value 5, :first_name "David Lory", :last_name "VanderBeek", :party "Ind", :incumbent false} {:choice "Undecided", :value 11, :first_name nil, :last_name nil, :party nil, :incumbent nil}]}]}]
+"http://www.scribd.com/doc/110446894/NV-Sen-Mellman-Group-for-Shelley-Berkley-Oct-2012"
+15925
+[{:name "Shelley Berkley (D)"}]
+nil
+user> (doseq [valor (vals data)] (prn (class valor)))
+java.lang.String
+java.lang.String
+java.lang.String
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+java.lang.Integer
+clojure.lang.PersistentVector
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (prn (class valor))))
+#'user/mif
+user> (mif data)
+java.lang.String
+java.lang.String
+java.lang.String
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+clojure.lang.PersistentVector
+java.lang.String
+java.lang.Integer
+clojure.lang.PersistentVector
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class []) (prn "vector") (prn "value")))))
+CompilerException java.lang.RuntimeException: Too few arguments to if, compiling:(NO_SOURCE_PATH:1) 
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (prn "vector") (prn "value"))))
+#'user/mif
+user> (mif data)
+"value"
+"value"
+"value"
+"value"
+"vector"
+"value"
+"vector"
+"value"
+"value"
+"vector"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (prn "V") (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"V"
+"S"
+"S"
+"V"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V") ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"V"
+"S"
+"S"
+"V"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  ) (prn "S"))))
+#'user/mif
+user> (def prueba [{1 2} {3 4}])
+#'user/prueba
+user> (class prueba)
+clojure.lang.PersistentVector
+user> (doseq [perico prueba] (prn perico))
+{1 2}
+{3 4}
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif valor)) ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+ClassCastException clojure.lang.PersistentArrayMap cannot be cast to java.util.Map$Entry  clojure.lang.APersistentMap$ValSeq.first (APersistentMap.java:174)
+user> (doseq [perico prueba] (prn (class perico)))
+clojure.lang.PersistentHashMap
+clojure.lang.PersistentHashMap
+nil
+user> (class (first-json))
+
+clojure.lang.PersistentHashMap
+user> 
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (mif data)
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"V"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"S"
+"V"
+"S"
+nil
+user> (defn mif [data] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn "V")  (doseq [perico valor] (mif perico)) ) (prn "S"))))
+#'user/mif
+user> (doc repeat)
+-------------------------
+clojure.core/repeat
+([x] [n x])
+  Returns a lazy (infinite!, or length n if supplied) sequence of xs.
+nil
+user> (repeat 3 "x")
+("x" "x" "x")
+user> (defn blanquea [numero]
+        (print (apply str (repeat numero "->"))))
+#'user/blanquea
+user> (blanquea 4)
+->->->->
+nil
+user> (defn mif [data contador] (doseq [valor (vals data)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S"))))
+#'user/mif
+user> (mif data 1)
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "V"
+->->->nil "S"
+->->->nil "S"
+->->->nil "S"
+->->->nil "V"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+nil
+user> prueba
+[{1 2} {3 4}]
+user> (def ey {1 2 3 4})
+#'user/ey
+user> (doseq [k (keys ey) v (vals ey)] (prn k v)
+             )
+1 2
+1 4
+3 2
+3 4
+nil
+user> (doseq [keyval ey] (prn keyval))
+[1 2]
+[3 4]
+nil
+user> (doseq [keyval ey] (prn key keyval))
+#<core$key clojure.core$key@1675e00> [1 2]
+#<core$key clojure.core$key@1675e00> [3 4]
+nil
+user> (doseq [keyval ey] (prn (key keyval)))
+1
+3
+nil
+user> (defn mif [data contador] (doseq [keyval data)] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S")))))
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+RuntimeException Unmatched delimiter: ]  clojure.lang.Util.runtimeException (Util.java:170)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: keyval in this context, compiling:(NO_SOURCE_PATH:1) 
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:170)
+user> (defn mif [data contador] (doseq [keyval data] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V")  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S")))))
+#'user/mif
+user> (mif data 1)
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "S"
+->->nil "V"
+->->->nil "S"
+->->->nil "S"
+->->->nil "S"
+->->->nil "V"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->->->->nil "S"
+->nil "S"
+->nil "S"
+->nil "V"
+->->nil "S"
+nil
+user> (defn mif [data contador] (doseq [keyval data] (let [clave (key keyval) valor (val keyval)] (if (= (class valor) (class [])) (do (prn (blanquea contador) "V" clave)  (doseq [perico valor] (mif perico (inc contador))) ) (prn (blanquea contador) "S" valor)))))
