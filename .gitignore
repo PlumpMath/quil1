@@ -8,5 +8,6 @@
 /.lein-failures
 /checkouts
 /.lein-deps-sum
-!maven_repository/toxiclibs/**.jar
+!**core-1.jar
 !**colorutils-1.jar
+!**ey.jar
