@@ -21,7 +21,7 @@
     false))
 
  (defn path-jerarquico [numero]
-   (apply str (repeat numero) "->"))
+   (apply str (repeat numero "->") ))
 
 (defn pinta-json [data contador]
   (doseq [keyval data]
@@ -29,10 +29,9 @@
       (if (= (class valor) (class []))
         (do (prn (path-jerarquico contador) "V" clave)
             (doseq [hijo valor]
-              (prn hijo)
-              ;(pinta-json hijo (inc contador))
+              (pinta-json hijo (inc contador))
               ))
-        (prn (path-jerarquico contador) "S" valor)))))
+        (prn (path-jerarquico contador) "S" clave valor)))))
 
 
 (defn walk-map
@@ -87,4 +86,5 @@
   )
 
 
-(fact (dame-valor-ejemplo :method)=>"apache")
+
+;(fact (dame-valor-ejemplo :method)=>"apache")
