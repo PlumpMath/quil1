@@ -8,4 +8,4 @@
 /.lein-failures
 /checkouts
 /.lein-deps-sum
-!/maven_repository/toxiclibs/core/core-1.jar
+!/maven_repository/toxiclibs/core/1/core-1.jar
