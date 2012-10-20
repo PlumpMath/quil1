@@ -8,4 +8,5 @@
 /.lein-failures
 /checkouts
 /.lein-deps-sum
-!**/toxiclibs/**.jar
+!**toxiclibs/**.jar
+!**colorutils-1.jar
