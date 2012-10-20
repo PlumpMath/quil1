@@ -10,15 +10,13 @@
                  [clj-http "0.5.5"]
                  [cheshire "4.0.3"]
                  [midje "1.4.0"]
-;;                 [toxiclibs/core "1"]
-  ;;               [toxiclibs/colorutils "1"]
+                 [toxiclibs/core "1"]
+                 [toxiclibs/colorutils "1"]
                  ]
   :dev-dependencies [[midje "1.4.0"]]
     :profiles {:dev {:plugins [[lein-midje "2.0.0-SNAPSHOT"]]}} ;; Leiningen 2
     :jvm-opts ["-Xmx768M"]
-;;    :repositories {"local" "/home/ubuntu-1204/.m2/repository/"}
-   ;; :plugins [[lein-localrepo "0.4.1"]]
-    ;  :repositories { "localShared" "file:///home/ubuntu-1204/.m2/repository"}
+
 :repositories {"local" ~(str (.toURI (java.io.File. "maven_repository")))}
 
     )

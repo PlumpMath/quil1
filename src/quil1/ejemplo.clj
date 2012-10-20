@@ -73,9 +73,15 @@
       ))
       )
 
+(defn cambia [ey]
+(.toARGB (color-dark))
+  )
 
 (defn key-pressed []
-  (swap! color-text (.toARGB (color-dark)))
+  (println (str "mi clase ---- "(class (color-rgb-random nil))))
+
+  (println (str "la otra" (class (.toARGB (color-dark)))))
+  (swap! color-text cambia)
   (text-font (state :fuente) (random 50 200))
   ;;(println (str "raw-key" (raw-key)))
   (println (key-as-keyword))
