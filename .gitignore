@@ -10,4 +10,3 @@
 /.lein-deps-sum
 !**core-1.jar
 !**colorutils-1.jar
-!**ey.jar
