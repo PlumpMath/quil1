@@ -8,5 +8,5 @@
 /.lein-failures
 /checkouts
 /.lein-deps-sum
-!/maven_repository/toxiclibs/core/1/core-1.jar
+!**toxiclibs/**core-1.jar
 !**colorutils-1.jar
