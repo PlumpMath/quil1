@@ -5,6 +5,10 @@
 
 (def miurl "http://elections.huffingtonpost.com/pollster/api/polls.json?page=2")
 
+
+
+
+
 (defn parsea-ejemplo []
   (json/decode (:body (client/get miurl)) true) )
 
