@@ -6,8 +6,7 @@
 (:import java.awt.event.KeyEvent (toxi.color TColor ColorRange))
 )
 (def ancho 100)
-
-
+;(def colors (atom [])) 
 (defn color-dark []
   (let [colorcito (. TColor newRandom)]
        (println (.toARGB colorcito))
@@ -18,8 +17,23 @@
 (defn nuevo-toxi-color []
   (.toARGB (color-dark))
   )
+(defn add-color-to-list
+  [n]
+   (swap! (state :colors) conj  (nuevo-toxi-color))
+        )
+
+
+
 
 (def color-text (atom 0))
+
+(defn cross-rows
+  [f]
+(dotimes  [n (state :cubes)]
+      (f n)
+      )
+  )
+
 (defn setup []
   (smooth)
   (background 100)
@@ -28,8 +42,11 @@
   (set-state!
    :fuente (create-font "Zapfino" 12)
    :cubes (count (parsea-ejemplo))
+   :colors (atom [])
    )
- 
+
+  (cross-rows add-color-to-list)
+  (println "el contador " (count (deref (state :colors))))
   (text-font (state :fuente) 12)
   
   )
@@ -44,16 +61,13 @@
   [n]
   (let [altura (/ (height)  (state :cubes))
             posicion (* altura n)
-            ]
-            (rect 0 posicion (width) altura))
+        ]
+   (fill ((deref (state :colors))  n))
+    
+    
+    (rect 0 posicion (width) altura))
   )
 
-(defn cross-rows
-  [f]
-(dotimes  [n (state :cubes)]
-      (f n)
-      )
-  )
 
 (defn draw []
   
