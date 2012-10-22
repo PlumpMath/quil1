@@ -45,15 +45,22 @@
             ]
             (rect 0 posicion 100 altura))
   )
+
+(defn cross-rows
+  [f]
+(dotimes  [n (state :cubes)]
+      (f n)
+      )
+  )
+
 (defn draw []
   
 (background 100) 
 
 ;(println (state :cubes))
   (fill 150)
-  (dotimes  [n (state :cubes)]
-      (paint-row n)
-      )
+
+(cross-rows (paint-row))
  
   
 ;;  (rect ancho ancho 300 300)
