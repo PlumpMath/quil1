@@ -6,15 +6,17 @@
 (:import java.awt.event.KeyEvent (toxi.color TColor ColorRange))
 )
 (def ancho 100)
-(defn nuevo-toxi-color []
-  (.toARGB (color-dark))
-  )
+
+
 (defn color-dark []
   (let [colorcito (. TColor newRandom)]
        (println (.toARGB colorcito))
        colorcito
        )
   
+  )
+(defn nuevo-toxi-color []
+  (.toARGB (color-dark))
   )
 
 (def color-text (atom 0))
@@ -43,7 +45,7 @@
   (let [altura (/ (height)  (state :cubes))
             posicion (* altura n)
             ]
-            (rect 0 posicion 100 altura))
+            (rect 0 posicion (width) altura))
   )
 
 (defn cross-rows
@@ -60,12 +62,12 @@
 ;(println (state :cubes))
   (fill 150)
 
-(cross-rows (paint-row))
+(cross-rows paint-row)
  
   
 ;;  (rect ancho ancho 300 300)
   (stroke 255)
-  (line 0 140 100 100)
+  
   (when-not @iniciado
     (do
       (println "no iniciado")
