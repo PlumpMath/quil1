@@ -53,7 +53,7 @@
 
 (def iniciado (atom false))
 (defn paint-random-circle [valor]
-  (println (str valor "paint-random-circle!!"))
+  ;(println (str valor "paint-random-circle!!"))
   (fill (random 255))
   (ellipse (num (random 0 500)) (num (random 0 500)) 50 50)
   )
@@ -95,6 +95,7 @@
 
 (defn mouse-clicked[]
   (do
+   ; (swap! (state :colors) [])
     (dorun (map paint-random-circle (parsea-ejemplo)))
 
 
