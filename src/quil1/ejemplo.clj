@@ -2,14 +2,16 @@
   (:use [quil.core]
         [quil1.util]
         [mijson]
-        [clj-time.local :only (local-now)])
+        [clj-time.local :only (local-now)]
+        [quil.helpers.seqs :only [seq->stream range-incl]]
+        )
 (:import java.awt.event.KeyEvent (toxi.color TColor ColorRange))
 )
 (def ancho 100)
 ;(def colors (atom [])) 
 (defn color-dark []
   (let [colorcito (. TColor newRandom)]
-       (println (.toARGB colorcito))
+      ; (println (.toARGB colorcito))
        colorcito
        )
   
@@ -25,6 +27,7 @@
 
 
 
+
 (def color-text (atom 0))
 
 (defn cross-rows
@@ -33,20 +36,47 @@
       (f n)
       )
   )
+(defn inicializa-colores
+  []
+  (cross-rows add-color-to-list)
+  )
+
+(defn reinit-colors
+  []
+  (swap! (state :colors) (fn [x] []))
+(inicializa-colores)
+  )
+
+(defn init-rows
+  [n]
+  (let [mapa {}]
+ (println "init rows")
+ (dotimes [i n]
+   (mapa assoc {:id i :color "micolor"})
+   (println "ya" i)
+   )
+ mapa
+ )
+  
+ )
 
 (defn setup []
   (smooth)
   (background 100)
 
-  
+  (let [rows-count (count (parsea-ejemplo))]
   (set-state!
    :fuente (create-font "Zapfino" 12)
-   :cubes (count (parsea-ejemplo))
+   :cubes rows-count
    :colors (atom [])
+   :selected-row (atom 0)
+   :rows(atom (init-rows rows-count))
    )
-
-  (cross-rows add-color-to-list)
+)
+  (inicializa-colores)
+ 
   (println "el contador " (count (deref (state :colors))))
+  (println "el mapa"  (deref (state :rows)))
   (text-font (state :fuente) 12)
   
   )
@@ -57,15 +87,24 @@
   (fill (random 255))
   (ellipse (num (random 0 500)) (num (random 0 500)) 50 50)
   )
+(defn rowish
+  [n f]
+  (let [altura (/ (height)  (state :cubes))
+        posicion (* altura n)]
+        (f n posicion altura)
+   )
+  )
 (defn paint-row
   [n]
-  (let [altura (/ (height)  (state :cubes))
-            posicion (* altura n)
-        ]
+
+  (rowish n (fn [n y-0 altura]
+            
+
    (fill ((deref (state :colors))  n))
     
     
-    (rect 0 posicion (width) altura))
+    (rect 0 y-0 (width) altura))
+          )
   )
 
 
@@ -93,7 +132,8 @@
    (text "eyyy" 30 40)
   )
 
-(defn mouse-clicked[]
+(defn paint-circles-reading-stats
+  []
   (do
    ; (swap! (state :colors) [])
     (dorun (map paint-random-circle (parsea-ejemplo)))
@@ -101,7 +141,7 @@
 
   ;;  (dotimes   [n (count (parsea-ejemplo))]  (paint-random-circle n))
                                         ;(paint-random-circle)
-    (print "click! ")
+   
     ;;  (println (str "la clae. " (class (apply color (color-rgb-random)))))
 
     (swap! iniciado complement)
@@ -114,6 +154,14 @@
       ;;        (println colorito)
 
       ))
+  )
+
+
+(defn mouse-clicked[]
+  (println "click")
+  ;(cross-rows (fn [n] ))
+  (println "point :" (mouse-x) " " (mouse-y))
+  ;(reinit-colors)
       )
 
 
