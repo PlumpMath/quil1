@@ -49,14 +49,9 @@
 
 (defn init-rows
   [n]
-  (let [mapa {}]
- (println "init rows")
- (dotimes [i n]
-   (mapa assoc {:id i :color "micolor"})
-   (println "ya" i)
-   )
- mapa
- )
+  (println "init rows")
+  (reduce (fn [v y] (conj v [y {:id y :color (nuevo-toxi-color)}])) {} (range n))
+
   
  )
 
@@ -108,14 +103,35 @@
   )
 
 
+
+
 (defn draw []
-  
-(background 100) 
+                                        ;  (println "ey" @(state
+                                 ;  :rows))
+; (println @(state :rows))
+ 
+  (background 100)
+  (doseq [rr @(state :rows)]
+;    (println rr)
+    (let  [[clave mapa] rr
+           colorito (:color mapa)
+           altura (/ (height) (state :cubes))
+           y-0 (* altura clave)
+           
+           ]
+      (fill colorito)
+      (rect 0 y-0 (width) altura )
+;      (println clave)
+      )
+    
+    )
+
 
 ;(println (state :cubes))
-  (fill 150)
+(fill 150)
 
-(cross-rows paint-row)
+;(println   (deref (state :rows)))
+;(cross-rows paint-row)
  
   
 ;;  (rect ancho ancho 300 300)
