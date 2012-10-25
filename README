@@ -2,6 +2,20 @@
 Learning clojure through processing.org with quil.
 
 
+INSTRUCTIONS TO DEPLOY
+*Prerequisites: You need to have installed Leiningen https://github.com/technomancy/leiningen#readme
+
+1- Open Terminal
+2- git clone git://github.com/juanantonioruz/quil1.git
+3- cd quil1
+4- lein deps
+5- lein repl
+6- (use 'quil1.core)
+
+TO FINISH: PUSH CTRL+D
+
+Good Luck!
+
 
 Copyright (C) 2012 juanantonioruz gmail
 
