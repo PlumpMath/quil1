@@ -179,8 +179,10 @@
   (println "point :" (mouse-x) " " (mouse-y))
                                         ;(reinit-colors)
   (println @(state :rows))
-  (swap! (state :rows) assoc 1  {:id 1, :color (nuevo-toxi-color)})
-  
+  (let [id-row  (rand-int (count @(state :rows)))]
+  (println id-row)
+  (swap! (state :rows) assoc id-row  {:id id-row, :color (nuevo-toxi-color)})
+)
       )
 
 
