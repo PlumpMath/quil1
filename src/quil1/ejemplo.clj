@@ -49,12 +49,18 @@
   )
 
 (defn init-rows
-  [n]
-  (println "init rows")
-  (reduce (fn [v y] (conj v [y {:id y :color (nuevo-toxi-color)}])) {} (range n))
-
-  
+  [n applet-height]
+  (let [row-height (/ applet-height n)]
+    (reduce (fn [v y] (conj v [y {:height row-height :color (nuevo-toxi-color)}])) {} (range n))
+    )
  )
+
+(defn calculo-altura-filas-en-relacion-existentes
+  "calculo-altura-filas-en-relacion-existentes"
+  [nmapa]
+  
+  (reduce (fn [array v] (let [[clave mapa] v] (conj array (reduce + (:color mapa) array))) ) [] nmapa)
+  )
 
 (defn setup []
   (smooth)
@@ -66,7 +72,7 @@
    :cubes rows-count
    :colors (atom [])
    :selected-row (atom 0)
-   :rows(atom (init-rows rows-count))
+   :rows(atom (init-rows rows-count (height)))
    )
 )
   (inicializa-colores)
@@ -107,16 +113,13 @@
 
 
 (defn draw []
-                                        ;  (println "ey" @(state
-                                 ;  :rows))
-; (println @(state :rows))
- 
+
   (background 100)
   (doseq [rr @(state :rows)]
-;    (println rr)
+
     (let  [[clave mapa] rr
            colorito (:color mapa)
-           altura (/ (height) (state :cubes))
+           altura (:height mapa)
            y-0 (* altura clave)
            
            ]
