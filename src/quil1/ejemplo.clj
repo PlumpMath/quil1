@@ -7,6 +7,7 @@
         )
 (:import java.awt.event.KeyEvent (toxi.color TColor ColorRange))
 )
+(def rows-debug )
 (def ancho 100)
 ;(def colors (atom [])) 
 (defn color-dark []
@@ -173,6 +174,16 @@
   )
 
 
+(defn change-row-color
+  [id-row]
+  (swap! (state :rows) (fn [the-map]
+                      (let [[k m] (find the-map id-row)
+                            nuevo-mapa (assoc m :color (nuevo-toxi-color)) 
+                            ]
+                        (assoc the-map id-row nuevo-mapa))))
+  )
+
+
 (defn mouse-clicked[]
   (println "click")
   ;(cross-rows (fn [n] ))
@@ -180,10 +191,13 @@
                                         ;(reinit-colors)
   (println @(state :rows))
   (let [id-row  (rand-int (count @(state :rows)))]
-  (println id-row)
-  (swap! (state :rows) assoc id-row  {:id id-row, :color (nuevo-toxi-color)})
+    (println id-row)
+    ;(swap! (state :rows) assoc id-row  {:id id-row, :color
+                                        ;(nuevo-toxi-color)})
+  (change-row-color id-row)    
+    )
+
 )
-      )
 
 
 (defn cambia [ey]
