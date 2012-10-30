@@ -30,7 +30,7 @@
 
 
 (def color-text (atom 0))
-
+(def mensaje (atom "Clojure Quil: Try to select a row!"))
 (defn cross-rows
   [f]
 (dotimes  [n (state :cubes)]
@@ -58,8 +58,17 @@
 (defn calculo-altura-filas-en-relacion-existentes
   "calculo-altura-filas-en-relacion-existentes"
   [nmapa]
-  
-  (reduce (fn [array v] (let [[clave mapa] v] (conj array (reduce + (:color mapa) array))) ) [] nmapa)
+  (reduce (fn [array v]
+            (let [[clave mapa] v
+                  valor (last array)
+                  valor-util (get valor 1 0)]
+              (conj array [ valor-util
+                           (+ (:height mapa)  valor-util )
+                           clave
+                           
+                           ]
+                    )))
+          [] nmapa)
   )
 
 (defn setup []
@@ -68,9 +77,10 @@
 
   (let [rows-count (count (parsea-ejemplo))]
   (set-state!
-   :fuente (create-font "Zapfino" 12)
+   :fuente (create-font "Zapfino" 15)
    :cubes rows-count
    :colors (atom [])
+ 
    :selected-row (atom 0)
    :rows(atom (init-rows rows-count (height)))
    )
@@ -79,7 +89,7 @@
  
   (println "el contador " (count (deref (state :colors))))
   (println "el mapa"  (deref (state :rows)))
-  (text-font (state :fuente) 12)
+  (text-font (state :fuente) 15)
   
   )
 
@@ -148,8 +158,9 @@
       (println "size" (state :cubes)   (str ( width) " - " (height)))
       (swap! iniciado complement)
       ))
-  (fill @color-text)
-   (text "eyyy" 30 40)
+(fill @color-text)
+;(println (state :mensaje))
+   (text @mensaje 100 80)
   )
 
 (defn paint-circles-reading-stats
@@ -186,20 +197,29 @@
                         (assoc the-map id-row nuevo-mapa))))
   )
 
-
+(defn log-rows []
+  (println @(state :rows)) )
 (defn mouse-clicked[]
-  (println "click")
-  ;(cross-rows (fn [n] ))
-  (println "point :" (mouse-x) " " (mouse-y))
-                                        ;(reinit-colors)
-  (println @(state :rows))
-  (let [id-row  (rand-int (count @(state :rows)))]
-    (println id-row)
-    ;(swap! (state :rows) assoc id-row  {:id id-row, :color
-                                        ;(nuevo-toxi-color)})
-  (change-row-color id-row)    
-    )
 
+  (println "click point :" (mouse-x) " " (mouse-y))
+
+  (let [calculo (calculo-altura-filas-en-relacion-existentes @(state :rows))]
+
+    
+    (doseq [row calculo]
+         (let [y (row 0)
+                      height (row 1)
+                      id (row 2)]
+           (when (and (< y (mouse-y)) (> height (mouse-y)))
+             (change-row-color id))
+           (swap! mensaje (fn [_] "Congratulations, you did it!"))
+;             (println "fila seleccionada " id))
+           )
+         )
+    )
+ ; (let [id-row  (rand-int (count @(state :rows)))]
+  ;      (change-row-color id-row)    
+  ;)
 )
 
 
@@ -213,7 +233,7 @@
 
   (println (str "la otra" (class (.toARGB (color-dark)))))
   (swap! color-text cambia)
-  (text-font (state :fuente) (random 50 200))
+ ; (text-font (state :fuente) (random 50 200))
   ;;(println (str "raw-key" (raw-key)))
   (println (key-as-keyword))
 ;;  (try (print  (key-as-keyword) " key: ")
