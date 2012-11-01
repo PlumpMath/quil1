@@ -7,9 +7,13 @@
         )
 (:import java.awt.event.KeyEvent (toxi.color TColor ColorRange))
 )
+
 (def rows-debug )
+
 (def ancho 100)
-;(def colors (atom [])) 
+
+(def mensaje (atom "Clojure Quil: Try to select a row!"))
+
 (defn color-dark []
   (let [colorcito (. TColor newRandom)]
       ; (println (.toARGB colorcito))
@@ -17,26 +21,27 @@
        )
   
   )
+
 (defn nuevo-toxi-color []
   (.toARGB (color-dark))
   )
+
 (defn add-color-to-list
   [n]
    (swap! (state :colors) conj  (nuevo-toxi-color))
         )
 
-
-
-
-
 (def color-text (atom 0))
-(def mensaje (atom "Clojure Quil: Try to select a row!"))
+
 (defn cross-rows
   [f]
 (dotimes  [n (state :cubes)]
       (f n)
       )
   )
+
+(defn hola [] "hola")
+
 (defn inicializa-colores
   []
   (cross-rows add-color-to-list)
@@ -94,11 +99,13 @@
   )
 
 (def iniciado (atom false))
+
 (defn paint-random-circle [valor]
   ;(println (str valor "paint-random-circle!!"))
   (fill (random 255))
   (ellipse (num (random 0 500)) (num (random 0 500)) 50 50)
   )
+
 (defn rowish
   [n f]
   (let [altura (/ (height)  (state :cubes))
@@ -106,6 +113,7 @@
         (f n posicion altura)
    )
   )
+
 (defn paint-row
   [n]
 
@@ -118,9 +126,6 @@
     (rect 0 y-0 (width) altura))
           )
   )
-
-
-
 
 (defn draw []
 
@@ -187,7 +192,6 @@
       ))
   )
 
-
 (defn change-row-color
   [id-row]
   (swap! (state :rows) (fn [the-map]
@@ -199,6 +203,7 @@
 
 (defn log-rows []
   (println @(state :rows)) )
+
 (defn mouse-clicked[]
 
   (println "click point :" (mouse-x) " " (mouse-y))
@@ -222,11 +227,9 @@
   ;)
 )
 
-
 (defn cambia [ey]
   (nuevo-toxi-color)
   )
-
 
 (defn key-pressed []
   (println (str "mi clase ---- "(class (color-rgb-random nil))))
@@ -242,12 +245,3 @@
                        
 
   )
-
-
-
-
-
-
-
-
-
