@@ -36,8 +36,10 @@
 
 (def mio2 (pop mio))
 
+
+
 (defn continua-listado-decreciente []
-  (reduce (fn [x y] (conj x (peek mio2))) [] (range seleccion (dec (count listado)))))
+  (reduce (fn [x y] (conj x y)) [] ((split-at (- (count listado)  (inc seleccion)) (reverse mio2)) 0)))
 
 (defn finaliza []
   (into mio (continua-listado-decreciente))
