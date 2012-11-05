@@ -1,6 +1,7 @@
 (ns quil1.ejemplo
   (:use [quil.core]
         [quil1.util]
+        [quil1.transformer]
         [mijson]
         [clj-time.local :only (local-now)]
         [quil.helpers.seqs :only [seq->stream range-incl]]
@@ -199,6 +200,12 @@
                             nuevo-mapa (assoc m :color (nuevo-toxi-color)) 
                             ]
                         (assoc the-map id-row nuevo-mapa))))
+  (let [unidades (final (range (count @(state :rows))) id-row)
+    suma (reduce + unidades)
+    val-ud (/ (height) suma)
+    ]
+  (println (map (fn[x] (* val-ud x)) unidades))
+  )
   )
 
 (defn log-rows []
@@ -217,6 +224,7 @@
                       id (row 2)]
            (when (and (< y (mouse-y)) (> height (mouse-y)))
              (change-row-color id))
+             
            (swap! mensaje (fn [_] "Congratulations, you did it!"))
 ;             (println "fila seleccionada " id))
            )
