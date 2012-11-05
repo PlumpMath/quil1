@@ -60,7 +60,7 @@
 (defn init-rows
   [n applet-height]
   (let [row-height (/ applet-height n)]
-    (reduce (fn [v y] (conj v [y {:height row-height :color (nuevo-toxi-color) :y (if (last v) (let [mm (last v) [cc vv] mm yi (:y vv) h (:height vv)]  (+ yi h row-height)   ) 0)}])) {} (range n))
+    (reduce (fn [v y] (conj v [y {:height row-height :color (nuevo-toxi-color) :y (if (find v (- y 1)) (let [mm (find v (- y 1)) [cc vv] mm yi (:y vv) h (:height vv)]  (+ yi h)   ) 0)}])) {} (range n))
     )
  )
 
