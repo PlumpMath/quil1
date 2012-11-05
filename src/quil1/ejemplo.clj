@@ -22,7 +22,10 @@
        )
   
   )
-
+(defn ejemplop [the-map id-row new-height]
+        (let [[k m] (find the-map id-row)
+              nuevo-mapa (assoc m :height new-height)]
+                   (assoc the-map id-row nuevo-mapa)))
 (defn nuevo-toxi-color []
   (.toARGB (color-dark))
   )
@@ -57,7 +60,7 @@
 (defn init-rows
   [n applet-height]
   (let [row-height (/ applet-height n)]
-    (reduce (fn [v y] (conj v [y {:height row-height :color (nuevo-toxi-color)}])) {} (range n))
+    (reduce (fn [v y] (conj v [y {:height row-height :color (nuevo-toxi-color) :y (if (last v) (let [mm (last v) [cc vv] mm yi (:y vv) h (:height vv)]  (+ yi h row-height)   ) 0)}])) {} (range n))
     )
  )
 
@@ -136,7 +139,7 @@
     (let  [[clave mapa] rr
            colorito (:color mapa)
            altura (:height mapa)
-           y-0 (* altura clave)
+           y-0 (:y mapa)
            
            ]
       (fill colorito)
@@ -215,10 +218,7 @@
   )
   )
 
-(defn ejemplop [the-map id-row new-height]
-        (let [[k m] (find the-map id-row)
-              nuevo-mapa (assoc m :height new-height)]
-                   (assoc the-map id-row nuevo-mapa)))
+
 
 (defn log-rows []
   (println @(state :rows)) )
@@ -251,7 +251,9 @@
 (defn cambia [ey]
   (nuevo-toxi-color)
   )
-
+(defn sum-rows-heights
+  []
+   (reduce (fn [v ma] (let [[kk vv] ma] (+ v (:height vv)))) 0 @(state :rows)))
 (defn key-pressed []
    (swap! color-text cambia)
    (println (key-as-keyword))
@@ -262,6 +264,3 @@
 
  )
 
-(defn sum-rows-heights
-  []
-   (reduce (fn [v ma] (let [[kk vv] ma] (+ v (:height vv)))) 0 @(state :rows)))
