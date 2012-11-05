@@ -1,13 +1,15 @@
-(ns quil1.transformer)
+(ns quil1.transformer
+  (:use [midje.sweet]))
 (def m "welcome")
-(def coleccion [1 2 3 4 5 6 7])
-(def seleccion 4)
+
+
 
 (defn distancia [posicion seleccion]
         (if (> seleccion posicion) 
             (- seleccion posicion)
           (- posicion seleccion))
         )
+
 
 (defn transforma [coleccion seleccion]
   (map (fn [x](distancia x seleccion))  (range (count coleccion))))
