@@ -140,8 +140,9 @@
            
            ]
       (fill colorito)
+      
       (rect 0 y-0 (width) altura )
-;      (println clave)
+;    (println clave)
       )
     
     )
@@ -195,18 +196,29 @@
 
 (defn change-row-color
   [id-row]
-  (swap! (state :rows) (fn [the-map]
-                      (let [[k m] (find the-map id-row)
-                            nuevo-mapa (assoc m :color (nuevo-toxi-color)) 
-                            ]
-                        (assoc the-map id-row nuevo-mapa))))
+  ;(swap! (state :rows) (fn [the-map]
+  ;                    (let [[k m] (find the-map id-row)
+  ;                          nuevo-mapa (assoc m :color (nuevo-toxi-color)) 
+  ;                          ]
+  ;                      (assoc the-map id-row nuevo-mapa))))
+
   (let [unidades (final (range (count @(state :rows))) id-row)
     suma (reduce + unidades)
-    val-ud (/ (height) suma)
-    ]
-  (println (map (fn[x] (* val-ud x)) unidades))
+    val-ud (double (/ (height) suma))
+        ]
+    (println (height) "valor unidad " val-ud "id-row " id-row "suma" suma "unidades " unidades)
+    (doall  (map (fn [valor hh] (let [[kk vv] valor]
+                                  (println "id: "kk "val-ud: "val-ud "ud" hh "tota" (double (* val-ud hh)))
+                          (swap! (state :rows) ejemplop kk (double (* val-ud hh)))
+                              )) @(state :rows)
+                                         unidades))
   )
   )
+
+(defn ejemplop [the-map id-row new-height]
+        (let [[k m] (find the-map id-row)
+              nuevo-mapa (assoc m :height new-height)]
+                   (assoc the-map id-row nuevo-mapa)))
 
 (defn log-rows []
   (println @(state :rows)) )
@@ -235,21 +247,21 @@
   ;)
 )
 
+
 (defn cambia [ey]
   (nuevo-toxi-color)
   )
 
 (defn key-pressed []
-  (println (str "mi clase ---- "(class (color-rgb-random nil))))
+   (swap! color-text cambia)
+   (println (key-as-keyword))
+  (println (state :rows))
+  (println (int (sum-rows-heights)))
 
-  (println (str "la otra" (class (.toARGB (color-dark)))))
-  (swap! color-text cambia)
- ; (text-font (state :fuente) (random 50 200))
-  ;;(println (str "raw-key" (raw-key)))
-  (println (key-as-keyword))
-;;  (try (print  (key-as-keyword) " key: ")
-  ;;     (catch Exception e (println (.getMessage e)))
- ;;      )
                        
 
-  )
+ )
+
+(defn sum-rows-heights
+  []
+   (reduce (fn [v ma] (let [[kk vv] ma] (+ v (:height vv)))) 0 @(state :rows)))
