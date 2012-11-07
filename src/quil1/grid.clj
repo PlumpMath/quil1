@@ -36,5 +36,21 @@
   )
 
 (defn mouse-clicked []
-(println "mouse!")
+  (println "mouse!")
+ (let [calculo (calculo-altura-filas-en-relacion-existentes @(state :rows))]
+
+    
+    (doseq [row calculo]
+         (let [y (row 0)
+                      height (row 1)
+                      id (row 2)]
+           (when (and (< y (mouse-y)) (> height (mouse-y)))
+             (change-row-color id (state :rows)))
+             
+;           (swap! mensaje (fn [_] "Congratulations, you did it!"))
+;             (println "fila seleccionada " id))
+           )
+         )
+    )
+  
   )

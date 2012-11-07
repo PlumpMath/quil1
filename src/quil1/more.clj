@@ -38,4 +38,47 @@
         mi-f (lafuncion row-height)]
     (reduce mi-f  [] (range n))
     )
- )
+  )
+
+
+
+(defn calculo-altura-filas-en-relacion-existentes
+  "calculo-altura-filas-en-relacion-existentes"
+  [nmapa]
+  (reduce (fn [array mapa]
+            (let [
+                  valor (last array)
+                  valor-util (get valor 1 0)
+                  id (count array)]
+              (conj array [ valor-util
+                           (+ (:height mapa)  valor-util )
+                           id
+                           
+                           ]
+                    )))
+          [] nmapa)
+  )
+(defn ejemplop [the-map id-row new-height]
+        (let [m (get the-map id-row)
+              nuevo-mapa (assoc m :height new-height)]
+                   (assoc the-map id-row nuevo-mapa)))
+
+(defn change-row-color
+  [id-row atom-rows]
+  
+  (let [unidades (final (range (count @atom-rows)) id-row)
+    suma (reduce + unidades)
+    val-ud (double (/ (height) suma))
+        ]
+    (println (height) "valor unidad " val-ud "id-row " id-row "suma" suma "unidades " unidades)
+    (doall  (map (fn [valor unidad ident]
+                   (let [
+                         vv (+ 1 1)]
+;                     (println "id: "indent "val-ud: "val-ud "ud" unidad "tota" (double (* val-ud unidad)))
+                     (swap! atom-rows ejemplop ident (double (* val-ud unidad)))
+                     ))
+                 @atom-rows
+                 unidades
+                 (range (count @atom-rows))))
+  )
+  )

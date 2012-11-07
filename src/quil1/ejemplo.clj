@@ -145,19 +145,15 @@
       (fill colorito)
       
       (rect 0 y-0 (width) altura )
-;    (println clave)
+
       )
     
     )
 
 
-;(println (state :cubes))
+
 (fill 150)
 
-;(println   (deref (state :rows)))
-;(cross-rows paint-row)
- 
-  
 ;;  (rect ancho ancho 300 300)
   (stroke 255)
   
