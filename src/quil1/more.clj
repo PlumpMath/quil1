@@ -44,41 +44,46 @@
 
 (defn calculo-altura-filas-en-relacion-existentes
   "calculo-altura-filas-en-relacion-existentes"
-  [nmapa]
+  [rows]
   (reduce (fn [array mapa]
             (let [
-                  valor (last array)
-                  valor-util (get valor 1 0)
+                  valor-util (if (last array) ( (last array) 1 ) 0)
                   id (count array)]
-              (conj array [ valor-util
+              (conj array [valor-util
                            (+ (:height mapa)  valor-util )
-                           id
-                           
-                           ]
+                           id]
                     )))
-          [] nmapa)
+          [] rows)
   )
-(defn ejemplop [the-map id-row new-height]
-        (let [m (get the-map id-row)
-              nuevo-mapa (assoc m :height new-height)]
-                   (assoc the-map id-row nuevo-mapa)))
+(defn edit-property [the-rows id-row the-property new-value]
+  (let [m (get the-rows id-row)
+        new-map (assoc m the-property new-value)]
+                   (assoc the-rows id-row new-map)))
 
 (defn change-row-color
   [id-row atom-rows]
-  
-  (let [unidades (final (range (count @atom-rows)) id-row)
+   (let [unidades (final (range (count @atom-rows)) id-row)
     suma (reduce + unidades)
     val-ud (double (/ (height) suma))
         ]
-    (println (height) "valor unidad " val-ud "id-row " id-row "suma" suma "unidades " unidades)
-    (doall  (map (fn [valor unidad ident]
-                   (let [
-                         vv (+ 1 1)]
-;                     (println "id: "indent "val-ud: "val-ud "ud" unidad "tota" (double (* val-ud unidad)))
-                     (swap! atom-rows ejemplop ident (double (* val-ud unidad)))
-                     ))
+     (doall  (map (fn [valor unidad id-rowi]
+                    (swap! atom-rows edit-property id-rowi :height (double (* val-ud unidad)))
+                     )
                  @atom-rows
                  unidades
                  (range (count @atom-rows))))
-  )
-  )
+     )
+  (let [calculo (calculo-altura-filas-en-relacion-existentes @atom-rows)]
+    (doseq [row calculo]
+      (let [y (row 0)
+            height (row 1)
+            id (row 2)]
+       
+        (swap! atom-rows edit-property id :y y)
+        )
+      )
+    
+
+    )
+  
+   )

@@ -8,5 +8,5 @@
   :setup grid/setup           
   :draw grid/draw
   :mouse-clicked grid/mouse-clicked
- ; :key-pressed ejemplo/key-pressed
-  :size [523 500])                
+  :key-pressed grid/key-pressed
+  :size [500 500])                
