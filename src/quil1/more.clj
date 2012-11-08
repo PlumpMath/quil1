@@ -22,7 +22,8 @@
   
 (defn lafuncion [row-height]
   (fn [v y]
-    (conj v {:height row-height
+    (conj v {:id (count v)
+             :height row-height
               :color (nuevo-toxi-color)
               :y (if (not= y 0)
                    (let [

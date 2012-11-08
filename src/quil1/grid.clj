@@ -38,22 +38,21 @@
 
 (defn mouse-clicked []
   (println "mouse!")
- (let [calculo (calculo-altura-filas-en-relacion-existentes @(state :rows))]
+     
+(for [row @(state :rows)
+                :let [y0 (:y row)
+                      y1 (+ (:height row) y0)
+                      id (:id row)
+                       ]
+                :when (and (> (mouse-y) (dec y0)) (< (mouse-y) y1))
+      ]
+  (doall
+    (reset! selected-row id)
+          (change-row))
+    
 
-  
-    (doseq [row calculo]
-         (let [y (row 0)
-                      height (row 1)
-               id (row 2)]
-  
-           (when (and (< y (mouse-y)) (> height (mouse-y)))
-             (reset! selected-row id)
-             (change-row))
-           
-
-           )
-         )
-    )
+    
+          )
   
  )
 
