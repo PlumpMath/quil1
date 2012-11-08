@@ -63,6 +63,7 @@
 
 (defn change-row-color
   [id-row atom-rows]
+
    (let [unidades (final (range (count @atom-rows)) id-row)
     suma (reduce + unidades)
     val-ud (double (/ (height) suma))

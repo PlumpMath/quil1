@@ -39,21 +39,16 @@
 (defn mouse-clicked []
   (println "mouse!")
      
-(for [row @(state :rows)
-                :let [y0 (:y row)
+
+(doseq [row @(state :rows)]
+       (let  [y0 (:y row)
                       y1 (+ (:height row) y0)
                       id (:id row)
-                       ]
-                :when (and (> (mouse-y) (dec y0)) (< (mouse-y) y1))
-      ]
-  (doall
-    (reset! selected-row id)
-          (change-row))
-    
-
-    
-          )
-  
+                      ]
+         (when (and (> (mouse-y) (dec y0)) (< (mouse-y) y1) )
+           (reset! selected-row id)
+           (change-row)
+           )))
  )
 
 (defn avanza []
