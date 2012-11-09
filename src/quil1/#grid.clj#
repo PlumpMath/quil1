@@ -1,7 +1,7 @@
 (ns quil1.grid
   (:use [quil.core]
         [quil1.more]))
-(def selected-row (atom nil))
+
 (defn setup []
   (background 100)
   (smooth)
@@ -20,30 +20,24 @@
   (text-font (state :fuente) 15)
 
   )
+
+
 (defn draw []
- (background 100)
+ (background 200)
   (doseq [mapa @(state :rows)]
     (let  [colorito (:color mapa)
            altura (:height mapa)
            y-0 (:y mapa)]
-      (fill colorito)
+      (fill 50)
       (rect 0 y-0 (width) altura )
       )
     )
   )
+(def selected-row (atom nil))
 (defn change-row []
        (change-row-color @selected-row (state :rows)))     
-(defn key-pressed []
 
-   
-   (when (= (key-as-keyword) :down)
-     
-     (avanza))
-   
-   (when (= (key-as-keyword) :up)
-    
-     (retrocede))
-   )
+
 (defn mouse-clicked []
   (println "mouse!")
      
@@ -58,6 +52,7 @@
            (change-row)
            )))
  )
+
 (defn avanza []
   (when-not (nil? @selected-row)
     (when (>  (count @(state :rows)) @selected-row)
@@ -85,5 +80,17 @@
     )
     )
 
+
+(defn key-pressed []
+
+   
+   (when (= (key-as-keyword) :down)
+     
+     (avanza))
+   
+   (when (= (key-as-keyword) :up)
+    
+     (retrocede))
+   )
 
 
