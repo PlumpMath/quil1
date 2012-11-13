@@ -9,4 +9,4 @@
   :draw grid/draw
   :mouse-clicked grid/mouse-clicked
   :key-pressed grid/key-pressed
-  :size [200 500])                
+   :size [200 500])                
