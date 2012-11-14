@@ -18,7 +18,7 @@
     :jvm-opts ["-Xmx768M"]
 
 :repositories {"local" ~(str (.toURI (java.io.File. "maven_repository")))}
-
+:plugins  [[lein-swank "1.4.4"]]
     )
 
 
